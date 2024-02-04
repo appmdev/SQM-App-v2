@@ -29,8 +29,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CQRS.Core", "CQRS-ES\CQRS.C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "helper", "helper", "{E5D33ECB-5A09-40E9-AE8F-D7733988EA5A}"
 	ProjectSection(SolutionItems) = preProject
-		helper\docker-compose.yml = helper\docker-compose.yml
+		helper\docker-compose-copy.yml = helper\docker-compose-copy.yml
 	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{68F6FF1E-EE18-4EF5-A155-B3C7B9453373}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -70,6 +72,10 @@ Global
 		{D5547EAE-0B41-4CD7-82AC-8B556D00C02B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5547EAE-0B41-4CD7-82AC-8B556D00C02B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5547EAE-0B41-4CD7-82AC-8B556D00C02B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68F6FF1E-EE18-4EF5-A155-B3C7B9453373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68F6FF1E-EE18-4EF5-A155-B3C7B9453373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68F6FF1E-EE18-4EF5-A155-B3C7B9453373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68F6FF1E-EE18-4EF5-A155-B3C7B9453373}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,17 @@
+version: '3.4'
+
+services:
+  app.cmd.api:
+    environment: 
+      - ASPNETCORE_ENVIRONMENT=Development
+      - KAFKA_TOPIC=pointcloud
+    ports:
+      - "5055:80"
+
+  app.query.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - KAFKA_TOPIC=pointcloud
+    ports:
+      - "5125:80"
+
