@@ -1,0 +1,73 @@
+version: "3.4"
+
+services:
+  zookeeper:
+    image: docker.io/bitnami/zookeeper:3.9
+    container_name: zookeeper_sqm
+    restart: always
+    ports:
+      - "2181:2181"
+    volumes:
+      - "zookeeper_data:/bitnami"
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - sqm-docker-network
+      
+  kafka:
+    image: docker.io/bitnami/kafka:3.5
+    container_name: kafka_sqm
+    ports:
+      - "9092:9092"
+    restart: always
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+    depends_on:
+      - zookeeper
+    networks:
+      - sqm-docker-network
+      
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb-sqm
+    ports:
+      - "27017:27017"
+    restart: always
+    volumes:
+      - "mongodb_data:/data/db"
+    networks:
+      - sqm-docker-network
+  sql-server:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    container_name: sql-server-sqm
+    ports:
+      - "1433:1433"
+    restart: always
+    environment:    
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Ros2humble!
+      - MSSQL_PID=Express
+    networks:
+      - sqm-docker-network
+      
+volumes:
+  zookeeper_data:
+    driver: local
+  kafka_data:
+    driver: local
+  mongodb_data:
+    driver: local
+   
+    
+networks:
+  sqm-docker-network:
+    name: sqm-docker-network-v1.5
+    driver: bridge
+    attachable: true
+
