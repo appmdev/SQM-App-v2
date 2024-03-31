@@ -36,6 +36,7 @@ var dispatcher = new CommandDispatcher();
 
 dispatcher.RegisterHandler<NewMapCommand>(commandHandler.HandleAsync);
 dispatcher.RegisterHandler<AddPointcloudCommand>(commandHandler.HandleAsync);
+dispatcher.RegisterHandler<AddStateCommand>(commandHandler.HandleAsync);
 dispatcher.RegisterHandler<DeleteMapCommand>(commandHandler.HandleAsync);
 dispatcher.RegisterHandler<RestoreReadDbCommand>(commandHandler.HandleAsync);
 builder.Services.AddSingleton<ICommandDispatcher>(_ => dispatcher);

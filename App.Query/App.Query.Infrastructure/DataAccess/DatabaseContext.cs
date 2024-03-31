@@ -10,6 +10,6 @@ namespace App.Query.Infrastructure.DataAccess
         }
 
         public DbSet<MapEntity> Maps { get; set; }
-        public DbSet<PointcloudEntity> Pointclouds { get; set; }
+        public DbSet<StateEntity> States { get; set; }
     }
 }

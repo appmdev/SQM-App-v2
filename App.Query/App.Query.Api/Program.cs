@@ -25,6 +25,7 @@ dataContext.Database.EnsureCreated();
 
 builder.Services.AddScoped<IMapRepository, MapRepository>();
 builder.Services.AddScoped<IPointcloudRepository, PointcloudRepository>();
+builder.Services.AddScoped<IStateRepository, StateRepository>();
 builder.Services.AddScoped<IQueryHandler, QueryHandler>();
 builder.Services.AddScoped<IEventHandler, App.Query.Infrastructure.Handlers.EventHandler>();
 builder.Services.Configure<ConsumerConfig>(builder.Configuration.GetSection(nameof(ConsumerConfig)));

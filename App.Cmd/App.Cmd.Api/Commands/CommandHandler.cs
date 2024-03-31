@@ -38,5 +38,13 @@ namespace App.Cmd.Api.Commands
         {
             await _eventSourcingHandler.RepublishEventsAsync();
         }
+
+        public async Task HandleAsync(AddStateCommand command)
+        {
+            var aggregate = await _eventSourcingHandler.GetByIdAsync(command.Id);
+            aggregate.AddState(command.RobotName, command.Category, command.Action, command.AditionalData);
+
+            await _eventSourcingHandler.SaveAsync(aggregate);
+        }
     }
 }

@@ -9,6 +9,15 @@ namespace App.Cmd.Domain.Aggregates
         private string _author;
         private readonly Dictionary<Guid, Tuple<string, string>> _pointclouds = new();
 
+        private record StateDetails(
+                string Category,
+                string Action,
+                string RobotName,
+                string AdditionalData,
+                DateTime StateDate);
+
+        private readonly Dictionary<Guid, StateDetails> _state = new();
+
         public bool Active
         {
             get => _active; set => _active = value;
@@ -54,6 +63,40 @@ namespace App.Cmd.Domain.Aggregates
                 PointcloudDate = DateTime.UtcNow
             });
         }
+        public void AddState(string robotName, string category, string action, string aditionalData)
+        {
+            if (!_active)
+            {
+                throw new InvalidOperationException("You cannot add a state to inactive Task!");
+            }
+            if (string.IsNullOrWhiteSpace(action))
+            {
+                throw new InvalidOperationException($"The value of {nameof(action)} cannot be null or empty. Plese provide a valid{nameof(action)}!");
+            }
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                throw new InvalidOperationException($"The value of {nameof(category)} cannot be null or empty. Plese provide a valid{nameof(category)}!");
+            }
+
+            RaiseEvent(new StateAddedEvent
+            {
+                Id = _id,
+                StateId = Guid.NewGuid(),
+                Category = category,
+                Action = action,
+                RobotName = robotName,
+                AdditionalData = aditionalData,
+                StateDate = DateTime.UtcNow
+            });
+        }
+        public void Apply(StateAddedEvent @event)
+        {
+            _id = @event.Id;
+            StateDetails state = new(@event.Category, @event.Action, @event.RobotName, @event.AdditionalData, @event.StateDate);
+            _state.Add(@event.StateId, state);
+        }
+
+
         public void Apply(PointcloudAddedEvent @event)
         {
             _id = @event.Id;

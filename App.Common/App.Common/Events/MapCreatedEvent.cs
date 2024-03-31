@@ -10,7 +10,6 @@ namespace App.Common.Events
 
         public string RobotName { get; set; }
         public string MapName { get; set; }
-        public string Pointcloud {get; set; }
         public DateTime DatePosted { get; set; }
     }
 }

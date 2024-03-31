@@ -1,32 +1,30 @@
-﻿
-using App.Query.Domain.Entities;
+﻿using App.Query.Domain.Entities;
 using App.Query.Domain.Repositories;
 using App.Query.Infrastructure.DataAccess;
+using Microsoft.EntityFrameworkCore;
 
 namespace App.Query.Infrastructure.Repositories
 {
-    public class PointcloudRepository : IPointcloudRepository
+    public class StateRepository : IStateRepository
     {
         private readonly DatabaseContextFactory _contextFactory;
 
-        public PointcloudRepository(DatabaseContextFactory contextFactory)
+        public StateRepository(DatabaseContextFactory contextFactory)
         {
             _contextFactory = contextFactory;
         }
-
-        public async Task CreateAsync(PointcloudEntity pointcloud)
+        public async Task CreateAsync(StateEntity state)
         {
             using DatabaseContext context = _contextFactory.CreateDbContext();
-            //context.Pointclouds.Add(pointcloud);
+            context.States.Add(state);
 
             _ = await context.SaveChangesAsync();
         }
 
-        public async Task<PointcloudEntity> GetByIdAsync(Guid pointcoudId)
+        public async Task<StateEntity> GetByIdAsync(Guid stateId)
         {
             using DatabaseContext context = _contextFactory.CreateDbContext();
-            //return await context.Pointclouds.FirstOrDefaultAsync(x => x.PointcloudId == pointcoudId);
-            throw new NotImplementedException();
+            return await context.States.FirstOrDefaultAsync(x => x.StateId == stateId);
         }
     }
 }
