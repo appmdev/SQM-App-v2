@@ -8,11 +8,13 @@ namespace App.Query.Infrastructure.Handlers
     {
         private readonly IMapRepository _mapRepository;
         private readonly IPointcloudRepository _pointcloudRepository;
+        private readonly IStateRepository _stateRepository;
 
-        public EventHandler(IMapRepository mapRepository, IPointcloudRepository pointcloudRepository)
+        public EventHandler(IMapRepository mapRepository, IPointcloudRepository pointcloudRepository, IStateRepository stateRepository)
         {
             _mapRepository = mapRepository;
             _pointcloudRepository = pointcloudRepository;
+            _stateRepository = stateRepository;
         }
 
         public async Task On(MapCreatedEvent @event)
@@ -45,6 +47,20 @@ namespace App.Query.Infrastructure.Handlers
 
             await _pointcloudRepository.CreateAsync(pointcloud);
         }
-    }
 
+        public async Task On(StateAddedEvent @event)
+        {
+            var state = new StateEntity {
+                //public Guid StateId { get; set; }
+                StateId = @event.Id,
+                RobotName = @event.RobotName,
+                Category = @event.Category,
+                Action = @event.Action,
+                AdditionalData = @event.AdditionalData,
+                StateDate = @event.StateDate,
+            };
+
+            await _stateRepository.CreateAsync(state);
+        }
+    }
 }

@@ -4,6 +4,7 @@
     {
         Task HandleAsync(NewMapCommand command);
         Task HandleAsync(AddPointcloudCommand command);
+        Task HandleAsync(AddStateCommand command);
         Task HandleAsync(DeleteMapCommand command);
         Task HandleAsync(RestoreReadDbCommand command);
     }

@@ -9,7 +9,7 @@
         "KAFKA_TOPIC": "pointcloud"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:5055"
+      "applicationUrl": "http://localhost:5056"
     },
     "IIS Express": {
       "commandName": "IISExpress",

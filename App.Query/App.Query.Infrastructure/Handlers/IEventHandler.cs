@@ -7,5 +7,6 @@ namespace App.Query.Infrastructure.Handlers
         Task On(MapCreatedEvent @event);
         Task On(MapRemovedEvent @event);
         Task On(PointcloudAddedEvent @event);
+        Task On(StateAddedEvent @event);
     }
 }

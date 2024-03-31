@@ -9,6 +9,6 @@ namespace App.Query.Domain.Repositories
         Task<MapEntity> GetByIdAsync(Guid mapId);
         Task<List<MapEntity>> ListAllAsync();
         Task<List<MapEntity>> ListByAuthorAsync(string author);
-        Task<List<MapEntity>> ListWithPointcloudsAsync();
+        Task<List<MapEntity>> ListWithStatesAsync();
     }
 }

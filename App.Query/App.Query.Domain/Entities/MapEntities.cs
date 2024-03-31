@@ -11,6 +11,6 @@ namespace App.Query.Domain.Entities
         public string Author { get; set; }
         public DateTime DateCreated { get; set; }
         public string MapName { get; set; }
-        public virtual ICollection<PointcloudEntity> Pointclouds { get; set; }
+        public virtual ICollection<StateEntity> States { get; set; }
     }
 }

@@ -35,7 +35,7 @@ namespace App.Query.Infrastructure.Repositories
         {
             using DatabaseContext context = _contextFactory.CreateDbContext();
             return await context.Maps
-                    .Include(m => m.Pointclouds)
+                    .Include(m => m.States)
                     .FirstOrDefaultAsync(x => x.MapId == mapId);
         }
 
@@ -43,7 +43,7 @@ namespace App.Query.Infrastructure.Repositories
         {
             using DatabaseContext context = _contextFactory.CreateDbContext();
             return await context.Maps.AsNoTracking()
-                    .Include(m => m.Pointclouds).AsNoTracking()
+                    .Include(m => m.States).AsNoTracking()
                     .ToListAsync();
         }
 
@@ -51,7 +51,7 @@ namespace App.Query.Infrastructure.Repositories
         {
             using DatabaseContext context = _contextFactory.CreateDbContext();
             return await context.Maps.AsNoTracking()
-                    .Include(m => m.Pointclouds).AsNoTracking()
+                    .Include(m => m.States).AsNoTracking()
                     .Where(x => x.Author.Contains(author))
                     .ToListAsync();
         }
@@ -60,8 +60,17 @@ namespace App.Query.Infrastructure.Repositories
         {
             using DatabaseContext context = _contextFactory.CreateDbContext();
             return await context.Maps.AsNoTracking()
-                    .Include(m => m.Pointclouds).AsNoTracking()
-                    .Where(x => x.Pointclouds != null && x.Pointclouds.Any())
+                    .Include(m => m.States).AsNoTracking()
+                    .Where(x => x.States != null && x.States.Any())
+                    .ToListAsync();
+        }
+
+        public async Task<List<MapEntity>> ListWithStatesAsync()
+        {
+            using DatabaseContext context = _contextFactory.CreateDbContext();
+            return await context.Maps.AsNoTracking()
+                    .Include(m => m.States).AsNoTracking()
+                    .Where(x => x.States != null && x.States.Any())
                     .ToListAsync();
         }
     }
