@@ -1,0 +1,86 @@
+{
+	"info": {
+		"_postman_id": "1f16805b-cecb-427a-97fb-2845c23973d5",
+		"name": "UOB-Project-Map",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "21234163",
+		"_collection_link": "https://orange-escape-739986.postman.co/workspace/5G-ERA-Middleware~905dc33b-c90b-4c14-8037-35f6fd03bc77/collection/21234163-1f16805b-cecb-427a-97fb-2845c23973d5?action=share&source=collection_link&creator=21234163"
+	},
+	"item": [
+		{
+			"name": "GetMapById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5125/api/v1/MapLookup/byId/1986f336-e142-48dc-af47-7b6f046f87ce"
+			},
+			"response": []
+		},
+		{
+			"name": "AddMap",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"author\": \"Test2\",\r\n  \"map\": \"map4\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5055/api/v1/NewMap"
+			},
+			"response": []
+		},
+		{
+			"name": "AddPointcloud",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"pointcloud\": \"string1\",\r\n  \"robotName\": \"Robot1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5055/api/v1/AddPointcloud/af3358df-46a5-4bb2-ab7b-a957738dc07c"
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllMaps",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:5125/api/v1/MapLookup"
+			},
+			"response": []
+		},
+		{
+			"name": "RestoreReadDb",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "http://localhost:5055/api/v1/RestoreReadDb"
+			},
+			"response": []
+		}
+	]
+}

@@ -26,15 +26,16 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeeper:2181
       - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
       - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
+      - KAFKA_ADVERTISED_HOST_NAME=kafka
     depends_on:
       - zookeeper
     networks:
       - sqm-docker-network
       
   mongodb:
-    image: mongo:latest
+    image: mongo:7.0
     container_name: mongodb-sqm
     ports:
       - "27017:27017"
@@ -56,12 +57,75 @@ services:
     networks:
       - sqm-docker-network
       
+  padmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin4-sqm
+    ports:
+      - "5050:80"
+    restart: always
+    environment:    
+      - PGADMIN_DEFAULT_EMAIL=admin@sqm.com
+      - PGADMIN_DEFAULT_PASSWORD=admin1234
+    volumes:
+      - "padmin_data:/root/.pgadmin"
+    networks:
+      - sqm-docker-network
+      
+  postgres:
+    image: postgres:12.18
+    container_name: postgres-sqm
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "postgres_data:/val/lib/postgresql/data"
+    networks:
+      - sqm-docker-network
+
+  app.cmd.api:
+    image: ghcr.io/appmdev/sqm-command-api:latest
+    container_name: app-cmd-api-sqm
+    ports:
+      - "5055:80"
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - KAFKA_TOPIC=pointcloud
+    depends_on:
+      - kafka
+      - mongodb
+    networks:
+      - sqm-docker-network
+
+  app.query.api:
+    image: ghcr.io/appmdev/sqm-query-api:latest
+    container_name: app-query-api-sqm
+    ports:
+      - "5125:80"
+    restart: always
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - KAFKA_TOPIC=pointcloud
+    depends_on:
+      - kafka
+      - postgres
+    networks:
+      - sqm-docker-network  
+     
+
 volumes:
   zookeeper_data:
     driver: local
   kafka_data:
     driver: local
   mongodb_data:
+    driver: local
+  padmin_data:
+    driver: local
+  postgres_data:
     driver: local
    
     
@@ -70,4 +134,5 @@ networks:
     name: sqm-docker-network-v1.5
     driver: bridge
     attachable: true
+    external: false
 
