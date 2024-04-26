@@ -1,0 +1,18 @@
+download docker compose file of cqrs/es api
+docker compose up
+download ros2_ws of sqm-app
+colcon build
+
+CROP middleware must be installed-available
+
+install relay client
+download sqm-relay-client-crop configuration
+adjust id's accordingly
+run relay client
+
+download in a folder
+source workspace # this is ROS-based script
+run
+lost_event.py
+run
+randomGoalGenerator_v4_2.py
